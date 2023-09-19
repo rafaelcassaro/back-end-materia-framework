@@ -9,129 +9,96 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class StudentDao{
-
-    Connection conn = ConnectionDb.getInstance().getConnection();
+public class StudentDao extends Daos<Student>{
 
     public StudentDao() {
+        super();
 
     }
 
-    public List<Student> findAll(){
-        try {
-            String sql = "SELECT * FROM student";
-            PreparedStatement preparedStatement = conn.prepareStatement(sql);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            List<Student> ls = new ArrayList<>();
+    @Override
+    String sqlCommandFindAll() {
+        return "SELECT * FROM student";
+    }
 
-            // Processa os resultados da consulta
+    @Override
+    String sqlCommandFindByID() {
+        return "select * from student where id= ?";
+    }
+
+    @Override
+    String sqlCommandDeleteByID() {
+        return "delete from student where id =?";
+    }
+
+    @Override
+    String sqlCommandAdd() {
+        return "insert into student(first_name, last_name) VALUES (?, ?)";
+    }
+
+    @Override
+    String sqlCommandUpdate() {
+        return "update student set first_name=?, last_name= ? where id = ?";
+    }
+
+    @Override
+    void ProcessingResultFindAll() {
+        try {
             while (resultSet.next()) {
                 Student student = new Student();
                 student.setId(resultSet.getInt("id"));
                 student.setFirstName(resultSet.getString("first_name"));
+                student.setLastName(resultSet.getString("last_name"));
                 ls.add(student);
 
-
-                //int id = resultSet.getInt("id");
-                //String nome = resultSet.getString("first_name");
-                // Faça algo com os dados recuperados do banco de dados
             }
-            resultSet.close();
-            preparedStatement.close();
-            return ls;
-            // Feche os recursos do banco de dados
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
-            // Lide com exceções de consulta aqui
-        }
-
-    }
-
-    public Student findById(int id)
-    {
-        try {
-            String query
-                    = "select * from student where id= ?";
-            PreparedStatement ps = conn.prepareStatement(query);
-            ResultSet rs = ps.executeQuery();
-            ps.setInt(1, id);
-            Student emp = new Student();
-
-            boolean check = false;
-
-            while (rs.next()) {
-                check = true;
-                emp.setId(rs.getInt("id"));
-                emp.setFirstName(rs.getString("first_name"));
-                emp.setLastName(rs.getString("last_name"));
-            }
-
-            if (check == true) {
-                return emp;
-            }
-            else
-                return null;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public Student add(Student emp)
-    {
+    @Override
+    void ProcessingResultFindByID() {
         try {
-            String query
-                    = "insert into student(first_name, last_name) VALUES (?, ?)";
-            PreparedStatement ps
-                    = conn.prepareStatement(query);
-            ps.setString(1, emp.getFirstName());
-            ps.setString(2, emp.getLastName());
+            object = new Student();
 
-            ps.executeUpdate();
-            return emp;
+
+            while (resultSet.next()) {
+
+                object.setId(resultSet.getInt("id"));
+                object.setFirstName(resultSet.getString("first_name"));
+                object.setLastName(resultSet.getString("last_name"));
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    @Override
+    void ProcessingResultAdd(Student object) {
+        try {
+
+            preparedStatement.setString(1, object.getFirstName());
+            preparedStatement.setString(2, object.getLastName());
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    @Override
+    void ProcessingResultUpdate(Student object) {
+        try {
+            preparedStatement.setString(1, object.getFirstName());
+            preparedStatement.setString(2, object.getLastName());
+            preparedStatement.setInt(3, object.getId());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-
-    public void deleteById(int id)
-    {
-        try {
-            String query
-                    = "delete from student where id =?";
-            PreparedStatement ps
-                    = conn.prepareStatement(query);
-            ps.setInt(1, id);
-            ps.executeUpdate();
-
-        }
-        catch(SQLException e){
-            e.printStackTrace();
-
-        }
-    }
-
-    public void update(Student emp)
-    {
-        try {
-            String query
-                    = "update student set first_name=?, "
-                    + " last_name= ? where id = ?";
-            PreparedStatement ps
-                    = conn.prepareStatement(query);
-            ps.setString(1, emp.getFirstName());
-            ps.setString(2, emp.getLastName());
-            ps.setInt(3, emp.getId());
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-
-        }
-    }
-
-
-
 
 
 }

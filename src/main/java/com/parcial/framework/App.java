@@ -6,9 +6,9 @@ public class App {
 
     public static void main(String[] args){
 
-        StudentDao dao = new StudentDao();
+        //StudentDao dao = new StudentDao();
 
-        dao.findAll();
+       // dao.findAll();
 
 
     }

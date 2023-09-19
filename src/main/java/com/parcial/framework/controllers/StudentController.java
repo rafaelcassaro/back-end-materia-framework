@@ -21,15 +21,15 @@ public class StudentController {
         return service.findAll();
     }
 
-    @GetMapping("students/{id}")
+    @GetMapping("/students/{id}")
     public Student findStudentById(@PathVariable int id){
-        Student student = service.findById(id);
+        //Student student = service.findById(id);
 
-        return student;
+        return service.findById(id);
     }
 
     @PostMapping("/students")
-    public Student addStudent(@RequestBody Student student) throws SQLException {
+    public Student addStudent(@RequestBody Student student) {
         student.setId(0);
         Student dbStudent = service.save(student);
         return dbStudent;
