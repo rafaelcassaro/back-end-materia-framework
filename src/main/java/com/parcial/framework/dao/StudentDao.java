@@ -1,9 +1,7 @@
 package com.parcial.framework.dao;
 
+import com.parcial.framework.db.ConnectionDb;
 import com.parcial.framework.entities.Student;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.TypedQuery;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
@@ -51,6 +49,35 @@ public class StudentDao{
 
     }
 
+    public Student findById(int id)
+    {
+        try {
+            String query
+                    = "select * from student where id= ?";
+            PreparedStatement ps = conn.prepareStatement(query);
+            ResultSet rs = ps.executeQuery();
+            ps.setInt(1, id);
+            Student emp = new Student();
+
+            boolean check = false;
+
+            while (rs.next()) {
+                check = true;
+                emp.setId(rs.getInt("id"));
+                emp.setFirstName(rs.getString("first_name"));
+                emp.setLastName(rs.getString("last_name"));
+            }
+
+            if (check == true) {
+                return emp;
+            }
+            else
+                return null;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public Student add(Student emp)
     {
         try {
@@ -84,37 +111,6 @@ public class StudentDao{
 
         }
     }
-
-    public Student getEmployeeById(int id)
-    {
-        try {
-            String query
-                    = "select * from student where id= ?";
-            PreparedStatement ps
-                    = conn.prepareStatement(query);
-
-            ps.setInt(1, id);
-            Student emp = new Student();
-            ResultSet rs = ps.executeQuery();
-            boolean check = false;
-
-            while (rs.next()) {
-                check = true;
-                emp.setId(rs.getInt("id"));
-                emp.setFirstName(rs.getString("first_name"));
-                emp.setLastName(rs.getString("last_name"));
-            }
-
-            if (check == true) {
-                return emp;
-            }
-            else
-                return null;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
 
     public void update(Student emp)
     {

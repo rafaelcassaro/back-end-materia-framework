@@ -27,7 +27,7 @@ public class StudentService {
     }
 
     public Student findById(int id){
-        return dao.getEmployeeById(id);
+        return dao.findById(id);
     }
 
     public void update (Student student)  {
