@@ -12,7 +12,7 @@ public class DatabaseConfig {
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/hb-05-many-to-many");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/framework-de-software");
         dataSource.setUsername("springstudent");
         dataSource.setPassword("springstudent");
         return dataSource;
