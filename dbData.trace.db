@@ -1,0 +1,9 @@
+2023-10-16 12:46:31 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "DELETE [*]ALL FROM BEBIDA"; expected "identifier"; SQL statement:
+DELETE ALL FROM BEBIDA [42001-214]
+2023-10-16 12:46:39 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "DELETE [*]* FROM BEBIDA"; expected "identifier"; SQL statement:
+DELETE * FROM BEBIDA [42001-214]
+2023-10-16 12:46:41 jdbc[5]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "DELETE [*]* FROM BEBIDA"; expected "identifier"; SQL statement:
+DELETE * FROM BEBIDA [42001-214]

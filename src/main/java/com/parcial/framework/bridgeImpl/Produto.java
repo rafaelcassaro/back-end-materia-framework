@@ -1,10 +1,13 @@
 package com.parcial.framework.bridgeImpl;
 
 import com.parcial.framework.entities.SpICMS;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
 public abstract class Produto {
 
-    private int id;
+
     private String nome;
     private double preco;
 
@@ -12,20 +15,25 @@ public abstract class Produto {
 
     public Produto(){}
 
-    public Produto(int id, String nome, double preco, ImpostoICMS impostoICMS) {
-        this.id = id;
+    public Produto( String nome, double preco, ImpostoICMS impostoICMS) {
+
         this.nome = nome;
         this.preco = preco;
         this.impostoICMS = impostoICMS;
     }
-
-    public int getId() {
-        return id;
+    public void setPreco(double preco) {
+        this.preco = preco;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public ImpostoICMS pegarImpostoICMS() {
+        return impostoICMS;
     }
+
+    public void setImpostoICMS(ImpostoICMS impostoICMS) {
+        this.impostoICMS = impostoICMS;
+    }
+
+
 
     public String getNome() {
         return nome;
@@ -39,15 +47,7 @@ public abstract class Produto {
         return preco ;
     }
 
-    public void setPreco(double preco) {
-        this.preco = preco;
-    }
 
-    public void setImpostoICMS(ImpostoICMS impostoICMS) {
-        this.impostoICMS = impostoICMS;
-    }
 
-    public ImpostoICMS pegarImpostoICMS() {
-        return impostoICMS;
-    }
+
 }
