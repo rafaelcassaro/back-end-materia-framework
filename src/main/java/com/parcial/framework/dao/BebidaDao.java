@@ -1,7 +1,6 @@
 package com.parcial.framework.dao;
 
 import com.parcial.framework.entities.Bebida;
-import com.parcial.framework.entities.Student;
 import org.springframework.stereotype.Repository;
 
 import java.sql.SQLException;

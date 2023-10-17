@@ -1,7 +1,6 @@
 package com.parcial.framework.dao;
 
 import com.parcial.framework.db.ConnectionDb;
-import com.parcial.framework.entities.Student;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,6 +12,7 @@ import java.util.List;
 public abstract class Daos <T> {
 
     ConnectionDb connectionDb = ConnectionDb.getInstance();
+    //aplicacao do metodo singleton puxado da pasta db
     Connection conn = connectionDb.getConnection();
     PreparedStatement preparedStatement = null;
     ResultSet resultSet = null;
@@ -23,25 +23,12 @@ public abstract class Daos <T> {
 
     }
 
-    /*public Daos(Connection conn, PreparedStatement preparedStatement, ResultSet resultSet, List<T> ls, T object) {
-        this.conn = conn;
-        this.preparedStatement = preparedStatement;
-        this.resultSet = resultSet;
-        this.ls = ls;
-        this.object = object;
-    }
-
-    public Daos(Connection conn, PreparedStatement preparedStatement, ResultSet resultSet, List<T> ls, T object) {
-        this.conn = conn;
-        this.preparedStatement = preparedStatement;
-        this.resultSet = resultSet;
-        this.ls = ls;
-        this.object = object;
-    }*/
 
     public List<T> findAll(){
         try {
+
             String sql = sqlCommandFindAll();
+            //metodo para conexao com o banco
             preparedStatement = conn.prepareStatement(sql);
             resultSet = preparedStatement.executeQuery();
 

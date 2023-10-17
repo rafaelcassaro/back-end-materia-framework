@@ -15,6 +15,8 @@ import java.sql.SQLException;
 public class ConnectionDb  {
 
     private static ConnectionDb instance;
+
+    //atributo do proprio java
     private static Connection connection = null;
 
     private static DatabaseConfig config = new DatabaseConfig();
@@ -22,9 +24,6 @@ public class ConnectionDb  {
     public ConnectionDb() {
         try {
 
-            //String url = "jdbc:mysql://localhost:3306/hb-05-many-to-many";
-            //String username = "springstudent";
-            //String password = "springstudent";
             connection = config.dataSource().getConnection();
 
         } catch (SQLException e) {

@@ -27,13 +27,7 @@ public class BebidaController {
         return service.findById(id);
     }
 
-    @PostMapping("/bebidas/{imposto}")
-    public Bebida addBebida(@RequestBody Bebida bebida, @PathVariable int imposto) {
-        bebida.setId(0);
-        tipoDoImposto(bebida,imposto);
-        Bebida dbBebida = service.save(bebida);
-        return dbBebida;
-    }
+
 
     @DeleteMapping("bebidas/{id}")
     public void deleteStudent(@PathVariable int id){
@@ -44,6 +38,14 @@ public class BebidaController {
     public void upadateStudent(@RequestBody Bebida bebida){
         service.update(bebida);
 
+    }
+
+    @PostMapping("/bebidas/{imposto}")
+    public Bebida addBebida(@RequestBody Bebida bebida, @PathVariable int imposto) {
+        bebida.setId(0);
+        tipoDoImposto(bebida,imposto);
+        Bebida dbBebida = service.save(bebida);
+        return dbBebida;
     }
 
     public void tipoDoImposto(Bebida bebida, int i){

@@ -30,13 +30,6 @@ public class LivroController {
         return service.findById(id);
     }
 
-    @PostMapping("/livros/{imposto}")
-    public Livro addLivro(@RequestBody Livro livro, @PathVariable int imposto) {
-        livro.setId(0);
-        tipoDoImposto(livro,imposto);
-        Livro dbLivro = service.save(livro);
-        return dbLivro;
-    }
 
     @DeleteMapping("livros/{id}")
     public void deleteLivro(@PathVariable int id){
@@ -48,6 +41,15 @@ public class LivroController {
         service.update(livro);
 
     }
+
+    @PostMapping("/livros/{imposto}")
+    public Livro addLivro(@RequestBody Livro livro, @PathVariable int imposto) {
+        livro.setId(0);
+        tipoDoImposto(livro,imposto);
+        Livro dbLivro = service.save(livro);
+        return dbLivro;
+    }
+
     public void tipoDoImposto(Livro livro, int i){
         if(i == 1){
             ImpostoICMS imp = new SpICMS();

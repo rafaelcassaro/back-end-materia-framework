@@ -5,12 +5,13 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+// a interface imposto esta dentro dessa classe em forma de atributo
 public abstract class Produto {
-
 
     private String nome;
     private double preco;
 
+    //interface imposto
     protected ImpostoICMS impostoICMS;
 
     public Produto(){}
@@ -21,11 +22,14 @@ public abstract class Produto {
         this.preco = preco;
         this.impostoICMS = impostoICMS;
     }
+
     public void setPreco(double preco) {
+
         this.preco = preco;
     }
 
     public ImpostoICMS pegarImpostoICMS() {
+
         return impostoICMS;
     }
 
