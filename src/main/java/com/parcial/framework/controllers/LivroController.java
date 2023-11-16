@@ -1,7 +1,6 @@
 package com.parcial.framework.controllers;
 
 import com.parcial.framework.bridgeImpl.ImpostoICMS;
-import com.parcial.framework.entities.Bebida;
 import com.parcial.framework.entities.Livro;
 import com.parcial.framework.entities.ScICMS;
 import com.parcial.framework.entities.SpICMS;
@@ -36,28 +35,32 @@ public class LivroController {
         service.deleteById(id);
     }
 
-    @PutMapping("/livros")
-    public void upadateLivro(@RequestBody Livro livro){
+    @PutMapping("/livros/editar/{imposto}")
+    public void upadateLivro(@RequestBody Livro livro, @PathVariable int imposto){
+        tipoDoImposto(livro,imposto);
         service.update(livro);
-
     }
 
-    @PostMapping("/livros/{imposto}")
-    public Livro addLivro(@RequestBody Livro livro, @PathVariable int imposto) {
-        livro.setId(0);
-        tipoDoImposto(livro,imposto);
-        Livro dbLivro = service.save(livro);
-        return dbLivro;
+    @PostMapping("/livros/add")
+    public Livro addLivro(@RequestBody Livro livro) {
+        livro.setImposto(1);
+        livro.setTotal(1);
+        service.save(livro);
+        return livro;
     }
 
     public void tipoDoImposto(Livro livro, int i){
         if(i == 1){
             ImpostoICMS imp = new SpICMS();
             livro.setImpostoICMS(imp);
+            livro.setTotal(livro.pegarImpostoICMS().aplicarImposto(livro.getPreco()));
+            livro.setImposto(livro.getTotal()- livro.getPreco());
         }
         else{
             ImpostoICMS imp = new ScICMS();
             livro.setImpostoICMS(imp);
+            livro.setTotal(livro.pegarImpostoICMS().aplicarImposto(livro.getPreco()));
+            livro.setImposto(livro.getTotal()- livro.getPreco());
         }
     }
 

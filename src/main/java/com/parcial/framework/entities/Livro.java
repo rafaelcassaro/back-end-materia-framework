@@ -7,16 +7,13 @@ import jakarta.persistence.*;
 
 public class Livro extends Produto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
     private String genero;
 
     public Livro(){}
 
-    public Livro(int id, String nome, double preco, ImpostoICMS impostoICMS) {
-        super( nome, preco, impostoICMS);
+    public Livro(int id, String nome, double preco, double imposto, double total, String genero) {
+        super(id, nome, preco, imposto, total);
+        this.genero = genero;
     }
 
     public String getGenero() {
@@ -27,11 +24,4 @@ public class Livro extends Produto {
         this.genero = genero;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 }

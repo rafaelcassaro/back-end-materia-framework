@@ -1,7 +1,6 @@
 package com.parcial.framework.services;
 
 import com.parcial.framework.dao.LivroDao;
-import com.parcial.framework.entities.Bebida;
 import com.parcial.framework.entities.Livro;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

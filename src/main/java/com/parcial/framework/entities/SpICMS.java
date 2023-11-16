@@ -2,6 +2,7 @@ package com.parcial.framework.entities;
 
 import com.parcial.framework.bridgeImpl.ImpostoICMS;
 
+//imposto de sp
 public class SpICMS implements ImpostoICMS {
 
     @Override

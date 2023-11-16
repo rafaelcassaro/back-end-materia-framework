@@ -1,43 +1,40 @@
 package com.parcial.framework.dao;
 
-
-import com.parcial.framework.bridgeImpl.ImpostoICMS;
-import com.parcial.framework.entities.Livro;
-import com.parcial.framework.entities.SpICMS;
+import com.parcial.framework.entities.Celular;
 import org.springframework.stereotype.Repository;
 
 import java.sql.SQLException;
 
 @Repository
-public class LivroDao extends Daos<Livro> {
+public class CelularDao extends Daos<Celular>{
 
-    public LivroDao(){
+    public CelularDao(){
         super();
     }
 
     @Override
     String sqlCommandFindAll() {
-        return "SELECT * FROM livro";
+        return "SELECT * FROM celular";
     }
 
     @Override
     String sqlCommandFindByID() {
-        return "select * from livro where id= ?";
+        return "select * from celular where id= ?";
     }
 
     @Override
     String sqlCommandDeleteByID() {
-        return "delete from livro where id =?";
+        return "delete from celular where id =?";
     }
 
     @Override
     String sqlCommandAdd() {
-        return "insert into livro(nome, genero, preco ,imposto,total) VALUES (?,?,?,?,?)";
+        return "insert into celular(nome, preco ,marca,imposto,total) VALUES (?,?,?,?,?)";
     }
 
     @Override
     String sqlCommandUpdate() {
-        return "update livro set nome=?, preco= ?, genero= ?, imposto=?, total=? where id = ?";
+        return "update celular set nome=?, preco= ?, marca= ?, imposto=?, total=? where id = ?";
     }
 
     @Override
@@ -45,64 +42,60 @@ public class LivroDao extends Daos<Livro> {
         try {
             ls.clear();
             while (resultSet.next()) {
-                Livro livro = new Livro();
-                livro.setId(resultSet.getInt("id"));
-                livro.setNome(resultSet.getString("nome"));
-                livro.setPreco(resultSet.getDouble("preco"));
-                livro.setGenero(resultSet.getString("genero"));
-                livro.setImposto(resultSet.getDouble("imposto"));
-                livro.setTotal(resultSet.getDouble("total"));
-                ls.add(livro);
+                Celular celular = new Celular();
+                celular.setId(resultSet.getInt("id"));
+                celular.setNome(resultSet.getString("nome"));
+                celular.setPreco(resultSet.getDouble("preco"));
+                celular.setMarca(resultSet.getString("marca"));
+                celular.setImposto(resultSet.getDouble("imposto"));
+                celular.setTotal(resultSet.getDouble("total"));
+                ls.add(celular);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     @Override
     void ProcessingResultFindByID() {
         try {
-
-            object = new Livro();
+            object = new Celular();
 
             while (resultSet.next()) {
                 object.setId(resultSet.getInt("id"));
                 object.setNome(resultSet.getString("nome"));
                 object.setPreco(resultSet.getDouble("preco"));
-                object.setGenero(resultSet.getString("genero"));
+                object.setMarca(resultSet.getString("marca"));
+
             }
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     @Override
-    void ProcessingResultAdd(Livro obj) {
+    void ProcessingResultAdd(Celular obj) {
         try {
             object = obj;
-
             preparedStatement.setString(1, object.getNome());
-            preparedStatement.setString(2, object.getGenero());
-            preparedStatement.setDouble(3, object.getPreco());
+            preparedStatement.setDouble(2, object.getPreco());
+            preparedStatement.setString(3, object.getMarca());
             preparedStatement.setDouble(4, object.getImposto());
             preparedStatement.setDouble(5, object.getTotal());
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
     }
 
     @Override
-    void ProcessingResultUpdate(Livro obj) {
+    void ProcessingResultUpdate(Celular obj) {
         try {
             object = obj;
             preparedStatement.setString(1, object.getNome());
             preparedStatement.setDouble(2, object.getPreco());
-            preparedStatement.setString(3, object.getGenero());
+            preparedStatement.setString(3, object.getMarca());
             preparedStatement.setDouble(4, object.getImposto());
             preparedStatement.setDouble(5, object.getTotal());
             preparedStatement.setInt(6, object.getId());

@@ -8,19 +8,44 @@ import jakarta.persistence.Id;
 // a interface imposto esta dentro dessa classe em forma de atributo
 public abstract class Produto {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
     private String nome;
     private double preco;
+    private double imposto;
+    private double total;
+
+
 
     //interface imposto
     protected ImpostoICMS impostoICMS;
 
     public Produto(){}
 
-    public Produto( String nome, double preco, ImpostoICMS impostoICMS) {
-
+    public Produto(int id, String nome, double preco, double imposto, double total) {
+        this.id = id;
         this.nome = nome;
         this.preco = preco;
-        this.impostoICMS = impostoICMS;
+        this.imposto = imposto;
+        this.total = total;
+    }
+
+    public double getImposto() {
+        return imposto;
+    }
+
+    public void setImposto(double imposto) {
+        this.imposto = imposto;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
     }
 
     public void setPreco(double preco) {
@@ -29,7 +54,6 @@ public abstract class Produto {
     }
 
     public ImpostoICMS pegarImpostoICMS() {
-
         return impostoICMS;
     }
 
@@ -37,7 +61,13 @@ public abstract class Produto {
         this.impostoICMS = impostoICMS;
     }
 
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getNome() {
         return nome;
@@ -50,8 +80,5 @@ public abstract class Produto {
     public double getPreco() {
         return preco ;
     }
-
-
-
 
 }
