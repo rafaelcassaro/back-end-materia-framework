@@ -24,7 +24,7 @@ public class LivroController {
     }
 
     @GetMapping("/livros/{id}")
-    public Livro findStudentById(@PathVariable int id){
+    public Livro findLivroById(@PathVariable int id){
 
         return service.findById(id);
     }

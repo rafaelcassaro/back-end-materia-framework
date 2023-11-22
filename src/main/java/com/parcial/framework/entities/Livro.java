@@ -11,8 +11,8 @@ public class Livro extends Produto {
 
     public Livro(){}
 
-    public Livro(int id, String nome, double preco, double imposto, double total, String genero) {
-        super(id, nome, preco, imposto, total);
+    public Livro(int id, String nome, double preco, double imposto, double total, String categoria, String genero) {
+        super(id, nome, preco, imposto, total, categoria);
         this.genero = genero;
     }
 

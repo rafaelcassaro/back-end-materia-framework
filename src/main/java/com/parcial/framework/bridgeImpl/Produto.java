@@ -16,6 +16,7 @@ public abstract class Produto {
     private double preco;
     private double imposto;
     private double total;
+    private String categoria;
 
 
 
@@ -24,12 +25,13 @@ public abstract class Produto {
 
     public Produto(){}
 
-    public Produto(int id, String nome, double preco, double imposto, double total) {
+    public Produto(int id, String nome, double preco, double imposto, double total, String categoria) {
         this.id = id;
         this.nome = nome;
         this.preco = preco;
         this.imposto = imposto;
         this.total = total;
+        this.categoria = categoria;
     }
 
     public double getImposto() {
@@ -81,4 +83,11 @@ public abstract class Produto {
         return preco ;
     }
 
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
 }

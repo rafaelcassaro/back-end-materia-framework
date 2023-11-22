@@ -21,23 +21,23 @@ public class CelularController {
     }
 
     @GetMapping("/celulares/{id}")
-    public Celular findStudentById(@PathVariable int id){
+    public Celular findCelularById(@PathVariable int id){
         return service.findById(id);
     }
 
     @DeleteMapping("celulares/{id}")
-    public void deleteStudent(@PathVariable int id){
+    public void deleteCelular(@PathVariable int id){
         service.deleteById(id);
     }
 
     @PutMapping("/celulares/editar/{imposto}")
-    public void upadateStudent(@RequestBody Celular celular, @PathVariable int imposto){
+    public void upadateCelular(@RequestBody Celular celular, @PathVariable int imposto){
         tipoDoImposto(celular,imposto);
         service.update(celular);
     }
 
     @PostMapping("/celulares/add")
-    public Celular addBebida(@RequestBody Celular celular) {
+    public Celular addCelular(@RequestBody Celular celular) {
         //celular.setId(0);
        // tipoDoImposto(celular,imposto);
         celular.setImposto(1);

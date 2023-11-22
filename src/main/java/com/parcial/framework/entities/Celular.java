@@ -9,8 +9,8 @@ public class Celular extends Produto {
 
     public Celular(){}
 
-    public Celular(int id, String nome, double preco, double imposto, double total, String marca) {
-        super(id, nome, preco, imposto, total);
+    public Celular(int id, String nome, double preco, double imposto, double total, String categoria, String marca) {
+        super(id, nome, preco, imposto, total, categoria);
         this.marca = marca;
     }
 

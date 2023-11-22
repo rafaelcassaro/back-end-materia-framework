@@ -29,12 +29,12 @@ public class CelularDao extends Daos<Celular>{
 
     @Override
     String sqlCommandAdd() {
-        return "insert into celular(nome, preco ,marca,imposto,total) VALUES (?,?,?,?,?)";
+        return "insert into celular(nome, preco ,marca,imposto,total,categoria) VALUES (?,?,?,?,?,?)";
     }
 
     @Override
     String sqlCommandUpdate() {
-        return "update celular set nome=?, preco= ?, marca= ?, imposto=?, total=? where id = ?";
+        return "update celular set nome=?, preco= ?, marca= ?, imposto=?, total=?, categoria=? where id = ?";
     }
 
     @Override
@@ -49,6 +49,7 @@ public class CelularDao extends Daos<Celular>{
                 celular.setMarca(resultSet.getString("marca"));
                 celular.setImposto(resultSet.getDouble("imposto"));
                 celular.setTotal(resultSet.getDouble("total"));
+                celular.setCategoria(resultSet.getString("categoria"));
                 ls.add(celular);
             }
         } catch (SQLException e) {
@@ -66,6 +67,7 @@ public class CelularDao extends Daos<Celular>{
                 object.setNome(resultSet.getString("nome"));
                 object.setPreco(resultSet.getDouble("preco"));
                 object.setMarca(resultSet.getString("marca"));
+                object.setCategoria(resultSet.getString("categoria"));
 
             }
 
@@ -83,6 +85,8 @@ public class CelularDao extends Daos<Celular>{
             preparedStatement.setString(3, object.getMarca());
             preparedStatement.setDouble(4, object.getImposto());
             preparedStatement.setDouble(5, object.getTotal());
+            preparedStatement.setString(6, object.getCategoria());
+
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -98,7 +102,8 @@ public class CelularDao extends Daos<Celular>{
             preparedStatement.setString(3, object.getMarca());
             preparedStatement.setDouble(4, object.getImposto());
             preparedStatement.setDouble(5, object.getTotal());
-            preparedStatement.setInt(6, object.getId());
+            preparedStatement.setString(6, object.getCategoria());
+            preparedStatement.setInt(7, object.getId());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
