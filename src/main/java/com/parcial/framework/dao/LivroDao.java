@@ -73,6 +73,8 @@ public class LivroDao extends Daos<Livro> {
                 object.setPreco(resultSet.getDouble("preco"));
                 object.setGenero(resultSet.getString("genero"));
                 object.setCategoria(resultSet.getString("categoria"));
+                object.setImposto(resultSet.getDouble("imposto"));
+                object.setTotal(resultSet.getDouble("total"));
             }
 
         } catch (SQLException e) {

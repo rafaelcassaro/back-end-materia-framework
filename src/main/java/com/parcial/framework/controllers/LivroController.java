@@ -1,6 +1,7 @@
 package com.parcial.framework.controllers;
 
 import com.parcial.framework.bridgeImpl.ImpostoICMS;
+import com.parcial.framework.bridgeImpl.Produto;
 import com.parcial.framework.entities.Livro;
 import com.parcial.framework.entities.ScICMS;
 import com.parcial.framework.entities.SpICMS;
@@ -36,9 +37,12 @@ public class LivroController {
     }
 
     @PutMapping("/livros/editar/{imposto}")
-    public void upadateLivro(@RequestBody Livro livro, @PathVariable int imposto){
+    public Produto upadateLivro(@RequestBody Livro livro, @PathVariable int imposto){
         tipoDoImposto(livro,imposto);
         service.update(livro);
+        int id = livro.getId();
+        Livro result = service.findById(id);
+        return result;
     }
 
     @PostMapping("/livros/add")

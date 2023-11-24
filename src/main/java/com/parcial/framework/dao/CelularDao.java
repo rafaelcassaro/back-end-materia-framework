@@ -68,6 +68,8 @@ public class CelularDao extends Daos<Celular>{
                 object.setPreco(resultSet.getDouble("preco"));
                 object.setMarca(resultSet.getString("marca"));
                 object.setCategoria(resultSet.getString("categoria"));
+                object.setImposto(resultSet.getDouble("imposto"));
+                object.setTotal(resultSet.getDouble("total"));
 
             }
 

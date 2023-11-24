@@ -1,6 +1,7 @@
 package com.parcial.framework.controllers;
 
 import com.parcial.framework.bridgeImpl.ImpostoICMS;
+import com.parcial.framework.bridgeImpl.Produto;
 import com.parcial.framework.entities.*;
 import com.parcial.framework.services.CelularService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,9 +32,13 @@ public class CelularController {
     }
 
     @PutMapping("/celulares/editar/{imposto}")
-    public void upadateCelular(@RequestBody Celular celular, @PathVariable int imposto){
+    public Produto upadateCelular(@RequestBody Celular celular, @PathVariable int imposto){
         tipoDoImposto(celular,imposto);
+        int id = celular.getId();
+
         service.update(celular);
+        Celular result = service.findById(id);
+        return result;
     }
 
     @PostMapping("/celulares/add")
