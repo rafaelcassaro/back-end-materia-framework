@@ -7,8 +7,11 @@ import com.parcial.framework.entities.ScICMS;
 import com.parcial.framework.entities.SpICMS;
 import com.parcial.framework.services.LivroService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -37,12 +40,19 @@ public class LivroController {
     }
 
     @PutMapping("/livros/editar/{imposto}")
-    public Produto upadateLivro(@RequestBody Livro livro, @PathVariable int imposto){
-        tipoDoImposto(livro,imposto);
-        service.update(livro);
-        int id = livro.getId();
-        Livro result = service.findById(id);
-        return result;
+    public ResponseEntity<Produto> upadateLivro(@RequestBody Livro livro, @PathVariable int imposto){
+        Livro object = service.findById(livro.getId());
+        if(object.getId() == 0){
+            return ResponseEntity.badRequest().body(object);
+        }
+        else{
+            tipoDoImposto(livro,imposto);
+            service.update(livro);
+            Livro result = service.findById(object.getId());
+
+            URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(result.getId()).toUri();
+            return ResponseEntity.created(uri).body(result);
+        }
     }
 
     @PostMapping("/livros/add")

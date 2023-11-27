@@ -1,9 +1,10 @@
 package com.parcial.framework.bridgeImpl;
 
-import com.parcial.framework.entities.SpICMS;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+
+import java.text.DecimalFormat;
 
 // a interface imposto esta dentro dessa classe em forma de atributo
 public abstract class Produto {
@@ -17,13 +18,14 @@ public abstract class Produto {
     private double imposto;
     private double total;
     private String categoria;
-
+    private DecimalFormat formato = new DecimalFormat("#.##");
 
 
     //interface imposto
     protected ImpostoICMS impostoICMS;
 
-    public Produto(){}
+    public Produto() {
+    }
 
     public Produto(int id, String nome, double preco, double imposto, double total, String categoria) {
         this.id = id;
@@ -80,7 +82,10 @@ public abstract class Produto {
     }
 
     public double getPreco() {
-        return preco ;
+        String numeroFormatado = formato.format(preco);
+        String numeroStringPonto = numeroFormatado.replace(",", ".");
+        double valorFinal = Double.parseDouble(numeroStringPonto);
+        return valorFinal;
     }
 
     public String getCategoria() {

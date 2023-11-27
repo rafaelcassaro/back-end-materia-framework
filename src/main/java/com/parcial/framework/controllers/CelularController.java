@@ -5,8 +5,11 @@ import com.parcial.framework.bridgeImpl.Produto;
 import com.parcial.framework.entities.*;
 import com.parcial.framework.services.CelularService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -32,13 +35,20 @@ public class CelularController {
     }
 
     @PutMapping("/celulares/editar/{imposto}")
-    public Produto upadateCelular(@RequestBody Celular celular, @PathVariable int imposto){
-        tipoDoImposto(celular,imposto);
-        int id = celular.getId();
+    public ResponseEntity<Produto> upadateCelular(@RequestBody Celular celular, @PathVariable int imposto){
+        Celular object = service.findById(celular.getId());
+        if(object.getId() == 0){
+            return ResponseEntity.badRequest().body(object);
+        }
+        else{
+            tipoDoImposto(celular,imposto);
+            int id = celular.getId();
 
-        service.update(celular);
-        Celular result = service.findById(id);
-        return result;
+            service.update(celular);
+            Celular result = service.findById(id);
+            URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(result.getId()).toUri();
+            return ResponseEntity.created(uri).body(result);
+        }
     }
 
     @PostMapping("/celulares/add")
