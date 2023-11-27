@@ -10,11 +10,14 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.text.DecimalFormat;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api")
 public class CelularController {
+
+    private DecimalFormat formato = new DecimalFormat("#.##");
 
     @Autowired
     private CelularService service;
@@ -43,6 +46,7 @@ public class CelularController {
         else{
             tipoDoImposto(celular,imposto);
             int id = celular.getId();
+
 
             service.update(celular);
             Celular result = service.findById(id);
